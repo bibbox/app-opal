@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+    §§INSTANCE-opal:
+      image: obiba/opal:snapshot
+      container-name:  §§INSTANCE-opal
+      ports:
+      - "§§PORT-A:8443"
+      - "§§PORT-B:8080"
+      links:
+      - §§INSTANCE-mongo
+      - §§INSTANCE-agate
+      - §§INSTANCE-rserver
+      environment:
+      - OPAL_ADMINISTRATOR_PASSWORD=changeme
+      volumes:
+      - /tmp/opal:/srv
+    §§INSTANCE-orserver:
+      image: obiba/opal-rserver:snapshot
+      container_name: §§INSTANCE-orserver:
+      ports:
+      - "§§PORT-C:6312"
+      - "§§PORT-D:6311"
+    §§INSTANCE-oagate:
+      image: obiba/agate:snapshot
+      container_name: §§INSTANCE-oagate:
+      ports:
+      - "§§PORT-E:8444"
+      - "§§PORT-F:8081"
+      links:
+      - mongo
+      volumes:
+      - /tmp/agate:/srv
+    §§INSTANCE-omongo:
+      image: mongo
+      container_name: §§INSTANCE-omongo
